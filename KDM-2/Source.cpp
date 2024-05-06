@@ -5,6 +5,8 @@
 
 using namespace std;
 
+static int countr = 0;
+
 /**
  * @brief Функція, яка розраховує факторіал числа
  * @param f Факторіа n!
@@ -27,7 +29,7 @@ float Factorial(const int& f) {
  * @param colection Колекція елементів всіх комбінацій 
 */
 void RepCombinations(const vector<int>& plural, vector<int>& current, const int& m, vector<vector<int>>& colection) {
-	static int count = 0;
+	
 	if (current.size() == m) {
 		vector <int> tmp = current;
 		for (int i = 0; i < colection.size(); i++) {
@@ -36,8 +38,8 @@ void RepCombinations(const vector<int>& plural, vector<int>& current, const int&
 			if (colection[i] == tmp) return;
 		}		
 		colection.push_back(current);
-		count++;
-		cout << "#" << setw(4) << left << count;
+		countr++;
+		cout << "#" << setw(4) << left << countr;
 		cout << "{ ";
 		for (int num : current) {
 			cout << num << " ";
@@ -84,7 +86,7 @@ int main() {
 		cout << "Enter the total number of elements (n): ";
 		do { cin >> n; CheckData(n); if (n < 1) cerr << "Error Min Size set of elements (1)\n"; } while (n < 1);
 		cout << "Enter the number of elemets in the set(m): ";
-		do { cin >> m; CheckData(m); if (m < 1) cerr << "Error Min amount of elements in the set (1)\n"; if (m > n) cerr << "Error: m > n\n"; } while (m < 1 || m > n);
+		do { cin >> m; CheckData(m); if (m < 1) cerr << "Error Min amount of elements in the set (1)\n"; /*if (m > n) cerr << "Error: m > n\n";*/ } while (m < 1);//|| m > n);
 		cout << "\nElements of set: " << "{ ";
 		for (int i = 0; i < n; i++) {
 			plural.push_back(i + 1);
@@ -100,6 +102,10 @@ int main() {
 			cout << "\nRetry? 1 - yes / 0 - no\n";
 			cin >> work;
 			CheckData(work);
+			plural.clear();
+			colection.clear();
+			current.clear();
+			countr = 0;
 		}
 	}	
 }
